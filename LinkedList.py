@@ -6,6 +6,8 @@ class LinkedList:
             self.prev = prev
         
         def get(self): return self.data
+
+        def delete(self): self.data = None
     
     def __init__(self, iterable=[]):
         self.head = None
