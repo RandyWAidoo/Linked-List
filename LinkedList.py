@@ -82,7 +82,7 @@ class LinkedList:
     def copy(self):
         copy = LinkedList()
         curr = self.head
-        for _ in range(self.__len__): 
+        for _ in range(self.len): 
             copy.append(curr.data)
             curr = curr.next
         return copy
