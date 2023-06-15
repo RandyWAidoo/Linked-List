@@ -33,7 +33,8 @@ class LinkedList:
                 curr = curr.prev
             return curr
         curr = self.head
-        for _ in range(index): curr = curr.next
+        for _ in range(index): 
+            curr = curr.next
         return curr
 
     def append(self, data):
@@ -86,6 +87,9 @@ class LinkedList:
         self.iterators[-1] = self.iterators[-1].next
         curr = self.iterators[-1]
         if curr == None: 
-            self.iterators.pop()
-            raise StopIteration
+            self.Break()
         return curr
+    
+    def Break(self):
+        self.iterators.pop()
+        raise StopIteration
