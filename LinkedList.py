@@ -13,7 +13,6 @@ class LinkedList:
         self.head = None
         self.tail = None
         self.len = 0
-        self.iterators = []
         if len(iterable) > 0: 
             dummy = self.Node()
             self.tail = dummy
@@ -78,18 +77,22 @@ class LinkedList:
         self.head = None
         self.tail = None
         self.len = 0
+
     
-    def __iter__(self): 
-        self.iterators.append(self.Node(None, self.head))
+    def copy(self):
+        copy = LinkedList()
+        curr = self.head
+        for _ in range(self.__len__): 
+            copy.append(curr.data)
+            curr = curr.next
+        return copy
+    
+    def __iter__(self):
+        self.curr = self.Node(None, self.head)
         return self
 
     def __next__(self):
-        self.iterators[-1] = self.iterators[-1].next
-        curr = self.iterators[-1]
-        if curr == None: 
-            self.Break()
-        return curr
-    
-    def Break(self):
-        self.iterators.pop()
-        raise StopIteration
+        self.curr = self.curr.next
+        if self.curr == None: 
+            raise StopIteration
+        return self.curr
