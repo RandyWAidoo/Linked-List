@@ -1,3 +1,6 @@
+#Nodes maintain their next and prev pointers after being popped for
+# yhe convenience of popping while iterating and still having access to the next/prev
+
 class LinkedList:
     class Node:
         def __init__(self, data=None, next=None, prev=None):
@@ -26,13 +29,19 @@ class LinkedList:
     def __len__(self): return self.len
 
     def get(self, index):
+        if not self.len:
+            return None
         if index < 0:
             curr = self.tail
-            for _ in range(abs(index)): 
+            for _ in range(abs(index) - 1): 
+                if not curr:
+                    return None
                 curr = curr.prev
             return curr
         curr = self.head
         for _ in range(index): 
+            if not curr:
+                return None
             curr = curr.next
         return curr
 
@@ -57,11 +66,16 @@ class LinkedList:
             return
         index = index if isinstance(index, self.Node) else self.get(index)
         node = self.Node(data, index, index.prev)
-        index.prev.next = node
-        index.prev = node
+        if index is self.head:
+            self.head = node
+        else:
+            index.prev.next = node
+            index.prev = node
         self.len += 1
 
     def pop(self, index):
+        if not self.len:
+            return
         index = index if isinstance(index, self.Node) else self.get(index)
         if index is self.head:
             self.head = self.head.next
