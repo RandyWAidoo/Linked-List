@@ -56,6 +56,9 @@ class LinkedList:
         self.len += 1
 
     def insert(self, index, data):
+        if index == None:
+            self.append(data)
+            return
         if not self.len:
             if index == 0 or index == -1:
                 self.head = self.Node(data, None, None)
@@ -91,7 +94,6 @@ class LinkedList:
         self.head = None
         self.tail = None
         self.len = 0
-
     
     def copy(self):
         copy = LinkedList()
@@ -102,11 +104,7 @@ class LinkedList:
         return copy
     
     def __iter__(self):
-        self.curr = self.Node(None, self.head)
-        return self
-
-    def __next__(self):
-        self.curr = self.curr.next
-        if self.curr == None: 
-            raise StopIteration
-        return self.curr
+        curr = self.head
+        for _ in range(self.len):
+            yield curr
+            curr = curr.next
